@@ -25,9 +25,7 @@ const AboutPage = () => {
           </div>
         </div>
         <p className="text-xl text-gray-300 leading-8">
-          Versatile and results-driven data engineer specializing in data architecture, ETL pipelines, and scalable data solutions. 
-          Extensive experience in cloud-based data engineering (AWS, GCP, Azure), real-time processing (Apache Kafka, Spark), 
-          and AI-driven analytics.
+        Innovative technology leader with a unique blend of AI engineering, data architecture, and product management expertise. Proven track record in developing cutting-edge AI solutions and scalable data systems, leading cross-functional teams, and driving product strategy. Specializes in bridging the gap between advanced technology (AI/ML, cloud architecture) and business value, having architected robust data pipelines (AWS, GCP, Azure) and launched multiple AI-powered products from conception to market. Deep expertise in real-time processing systems (Apache Kafka, Spark) and research-driven development, with significant contributions to computer vision, machine learning, and data-intensive applications in real-world scenarios.
         </p>
       </div>
 
