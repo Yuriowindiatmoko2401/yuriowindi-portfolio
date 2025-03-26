@@ -3,6 +3,55 @@
 @tailwind utilities;
 
 :root {
+  --background: 217 19% 27%;
+  --foreground: 210 40% 98%;
+  
+  --primary: 210 40% 98%;
+  --primary-foreground: 222.2 47.4% 11.2%;
+  
+  --secondary: 217 19% 27%;
+  --secondary-foreground: 210 40% 98%;
+  
+  --accent: 25 95% 53%;
+  --accent-foreground: 210 40% 98%;
+  
+  --muted: 217 19% 27%;
+  --muted-foreground: 215 20.2% 65.1%;
+}
+
+@layer base {
+  body {
+    @apply bg-[#1a1f2b] text-gray-100;
+    background: linear-gradient(to bottom, #1a1f2b, #12151c);
+  }
+}
+
+.hero-gradient {
+  background: linear-gradient(45deg, rgba(26,31,43,0.8) 0%, rgba(18,21,28,0.9) 100%);
+}
+
+.nav-blur {
+  backdrop-filter: blur(8px);
+  background: rgba(26, 31, 43, 0.8);
+}
+
+.floating-element {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+:root {
   --background: #ffffff;
   --foreground: #171717;
 }
