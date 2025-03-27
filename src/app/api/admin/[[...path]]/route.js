@@ -1,67 +1,35 @@
 import { NextResponse } from 'next/server';
-import { getPayload } from '../../../../lib/payload';
 
 async function handler(req) {
-  try {
-    const payload = await getPayload();
-    
-    // Get the path
-    const { pathname } = new URL(req.url);
-    const path = pathname.replace('/api/admin', '');
-    
-    // Parse body if present
-    let body;
-    if (req.body) {
-      try {
-        body = await req.json();
-      } catch (e) {
-        // Not JSON or no body
-      }
-    }
-    
-    // Use payload.local API
-    let result;
-    
-    if (path.includes('/graphql')) {
-      // Handle GraphQL requests
-      result = await payload.local.graphQL({
-        query: body?.query,
-        variables: body?.variables,
-      });
-    } else {
-      // Handle REST requests
-      const method = req.method.toLowerCase();
-      
-      if (method === 'get') {
-        const searchParams = new URL(req.url).searchParams;
-        const query = {};
-        
-        searchParams.forEach((value, key) => {
-          query[key] = value;
-        });
-        
-        result = await payload.local.findByID({
-          collection: 'users',
-          id: path.split('/').pop(),
-          depth: 2,
-          ...query,
-        });
-      } else if (method === 'post') {
-        result = await payload.local.create({
-          collection: 'users',
-          data: body,
-        });
-      }
-    }
-    
-    return NextResponse.json(result || { success: true });
-  } catch (error) {
-    console.error('Admin route error:', error);
-    return NextResponse.json(
-      { error: error.message },
-      { status: error.status || 500 }
-    );
+  // Set CORS headers
+  const corsHeaders = {
+    'Access-Control-Allow-Origin': process.env.NODE_ENV === 'production' 
+      ? 'https://yuriowindi-portfolio.vercel.app' 
+      : 'http://localhost:3000',
+    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+    'Access-Control-Allow-Credentials': 'true',
+  };
+  
+  // Handle OPTIONS request for CORS preflight
+  if (req.method === 'OPTIONS') {
+    return new NextResponse(null, { 
+      status: 200,
+      headers: corsHeaders,
+    });
   }
+  
+  // For all other requests, return a message explaining that admin is only available locally
+  return NextResponse.json(
+    { 
+      message: 'The Payload CMS admin panel is only available in local development mode.',
+      localUrl: 'http://localhost:3000/admin'
+    }, 
+    { 
+      status: 200,
+      headers: corsHeaders
+    }
+  );
 }
 
 export const GET = handler;
