@@ -1,0 +1,7 @@
+{
+  "build": {
+    "env": {
+      "PAYLOAD_CONFIG_PATH": "payload.config.js"
+    }
+  }
+}
