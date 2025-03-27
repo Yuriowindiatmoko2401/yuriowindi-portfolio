@@ -1,54 +1,36 @@
-import { createNextPayloadRouter } from '@payloadcms/next-payload/dist/router';
-import { nextHandler } from '@payloadcms/next-payload/dist/handlers/next';
-import payload from 'payload';
 import { NextResponse } from 'next/server';
+import payload from 'payload';
+import { getPayload } from '../../../../lib/payload';
 
-const router = createNextPayloadRouter({
-  payloadConfig: {
-    // Your payload config
-  },
-  // Define routes
-  routes: [
-    {
-      path: '/api/admin/(.*)',
-      method: ['GET', 'POST', 'PATCH', 'PUT', 'DELETE', 'OPTIONS'],
-      handler: nextHandler,
-    },
-  ],
-});
+async function handler(req) {
+  try {
+    const { pathname } = new URL(req.url);
+    const path = pathname.replace('/api/admin', '');
 
-export async function GET(req) {
-  return router.handle(req);
+    const payload = await getPayload();
+    const { res, req: payloadReq } = await payload.express.prepareRequest(req);
+
+    await payload.express.processAdmin({
+      req: payloadReq,
+      res,
+      next: () => {},
+      path,
+    });
+
+    const data = res._getData();
+    return NextResponse.json(data);
+  } catch (error) {
+    console.error('Admin route error:', error);
+    return NextResponse.json(
+      { error: error.message },
+      { status: error.status || 500 }
+    );
+  }
 }
 
-export async function POST(req) {
-  return router.handle(req);
-}
-
-export async function PUT(req) {
-  return router.handle(req);
-}
-
-export async function PATCH(req) {
-  return router.handle(req);
-}
-
-export async function DELETE(req) {
-  return router.handle(req);
-}
-
-export async function OPTIONS(req) {
-  const corsHeaders = {
-    'Access-Control-Allow-Origin': process.env.NODE_ENV === 'production' 
-      ? 'https://yuriowindi-portfolio.vercel.app' 
-      : 'http://localhost:3000',
-    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-    'Access-Control-Allow-Credentials': 'true',
-  };
-
-  return new NextResponse(null, { 
-    status: 200,
-    headers: corsHeaders,
-  });
-}
+export const GET = handler;
+export const POST = handler;
+export const PUT = handler;
+export const PATCH = handler;
+export const DELETE = handler;
+export const OPTIONS = handler;
