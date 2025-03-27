@@ -3,5 +3,11 @@
     "env": {
       "PAYLOAD_CONFIG_PATH": "payload.config.js"
     }
-  }
+  },
+  "rewrites": [
+    {
+      "source": "/admin/:path*",
+      "destination": "/api/admin/:path*"
+    }
+  ]
 }

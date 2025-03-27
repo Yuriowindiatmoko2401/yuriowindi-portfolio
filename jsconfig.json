@@ -2,9 +2,8 @@
   "compilerOptions": {
     "paths": {
       "@/*": ["./src/*"],
-      "@payload-config": [
-        "./payload.config.js"
-      ]
+      "@payload-config": ["./payload.config.js"],
+      "@payload-config/*": ["./payload.config/*"]
     }
   }
 }
