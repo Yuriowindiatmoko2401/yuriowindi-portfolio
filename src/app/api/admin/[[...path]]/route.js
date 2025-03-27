@@ -9,33 +9,27 @@ async function handler(req) {
     });
     
     // Get the path and query
-    const { pathname, search } = new URL(req.url);
+    const { pathname } = new URL(req.url);
     const path = pathname.replace('/api/admin', '');
-    const query = search || '';
-
-    // Convert headers to plain object
-    const headers = {};
-    req.headers.forEach((value, key) => {
-      headers[key] = value;
-    });
 
     // Parse body if present
     let body;
     if (req.body) {
-      const contentType = req.headers.get('content-type');
-      if (contentType && contentType.includes('application/json')) {
+      try {
         body = await req.json();
-      } else {
+      } catch (e) {
+        // If not JSON, get as text
         body = await req.text();
       }
     }
 
     // Call the local API
-    const response = await payload.request({
-      url: path + query,
-      method: req.method,
-      headers,
-      body,
+    const result = await payload.local.graphQL({
+      req: {
+        url: path,
+        method: req.method,
+        body,
+      },
     });
 
     // Set CORS headers
@@ -56,7 +50,7 @@ async function handler(req) {
       });
     }
 
-    return NextResponse.json(response, { 
+    return NextResponse.json(result, { 
       headers: corsHeaders,
     });
   } catch (error) {
