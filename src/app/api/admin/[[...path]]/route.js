@@ -4,22 +4,23 @@ import { getPayload } from '../../../../lib/payload';
 async function handler(req) {
   try {
     const payload = await getPayload();
-    const { pathname, search } = new URL(req.url);
+    
+    // Get the path without /api/admin prefix
+    const { pathname } = new URL(req.url);
     const path = pathname.replace('/api/admin', '');
-    const query = search || '';
 
-    // Convert the request to a format Payload can understand
-    const payloadReq = {
-      url: path + query,
+    // Convert headers to plain object
+    const headers = {};
+    req.headers.forEach((value, key) => {
+      headers[key] = value;
+    });
+
+    // Call the local API
+    const response = await payload.request({
+      url: path,
       method: req.method,
-      headers: req.headers,
-      query: Object.fromEntries(new URLSearchParams(query)),
-      body: req.body,
-    };
-
-    // Use Payload's local API
-    const response = await payload.local.graphQL({
-      req: payloadReq,
+      headers,
+      body: req.body ? await req.json() : undefined,
     });
 
     return NextResponse.json(response);
