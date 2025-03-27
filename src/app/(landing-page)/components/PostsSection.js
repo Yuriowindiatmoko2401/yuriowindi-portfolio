@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { getPayload } from "../../../lib/payload";
 
 function formatDate(timestamp) {
   const date = new Date(timestamp);
@@ -10,18 +9,7 @@ function formatDate(timestamp) {
   });
 }
 
-const PostsSection = async () => {
-  const payload = await getPayload();
-  const posts = await payload.find({
-    collection: "posts",
-    limit: 2,
-    sort: "-createdAt",
-    where: {
-      includedInBlog: {
-        equals: true,
-      },
-    },
-  });
+const PostsSection = ({ posts = [] }) => {
 
   return (
     <div
@@ -36,7 +24,7 @@ const PostsSection = async () => {
           </h2>
         </div>
         <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-12">
-          {posts.docs.map((post) => (
+          {posts?.map((post) => (
             <Link
               href={`/posts/${post.id}`}
               key={post.id}
