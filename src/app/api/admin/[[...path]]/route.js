@@ -1,10 +1,10 @@
 import { NextResponse } from 'next/server';
-import { getPayloadClient } from '@payloadcms/next/dist/payload-client';
+import payload from 'payload';
 import { getPayload } from '../../../../lib/payload';
 
 export async function GET(req) {
   try {
-    const payload = await getPayloadClient();
+    const payload = await getPayload();
     const { res } = await payload.handle(req);
     return res;
   } catch (error) {
@@ -15,7 +15,7 @@ export async function GET(req) {
 
 export async function POST(req) {
   try {
-    const payload = await getPayloadClient();
+    const payload = await getPayload();
     const { res } = await payload.handle(req);
     return res;
   } catch (error) {
@@ -26,7 +26,7 @@ export async function POST(req) {
 
 export async function PATCH(req) {
   try {
-    const payload = await getPayloadClient();
+    const payload = await getPayload();
     const { res } = await payload.handle(req);
     return res;
   } catch (error) {
@@ -37,7 +37,7 @@ export async function PATCH(req) {
 
 export async function DELETE(req) {
   try {
-    const payload = await getPayloadClient();
+    const payload = await getPayload();
     const { res } = await payload.handle(req);
     return res;
   } catch (error) {
@@ -48,7 +48,7 @@ export async function DELETE(req) {
 
 export async function PUT(req) {
   try {
-    const payload = await getPayloadClient();
+    const payload = await getPayload();
     const { res } = await payload.handle(req);
     return res;
   } catch (error) {
