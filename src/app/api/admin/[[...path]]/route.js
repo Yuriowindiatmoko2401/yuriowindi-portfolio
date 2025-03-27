@@ -1,9 +1,12 @@
 import { NextResponse } from 'next/server';
-import { getPayload } from '../../../../lib/payload';
+import { getPayload } from 'payload';
+import configPromise from '@payload-config';
 
 async function handler(req) {
   try {
-    const payload = await getPayload();
+    const payload = await getPayload({
+      config: configPromise,
+    });
     
     // Get the path and query
     const { pathname, search } = new URL(req.url);
