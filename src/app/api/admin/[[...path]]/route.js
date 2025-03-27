@@ -1,22 +1,25 @@
 import { NextResponse } from 'next/server';
-import { createPayloadClient } from '@payloadcms/next-payload';
-import config from '../../../../../payload.config';
-
-const { payload } = createPayloadClient({
-  // Payload config
-  config,
-  // Configure express separately
-  express: null,
-});
+import { getPayload } from '../../../../lib/payload';
 
 async function handler(req) {
   try {
+    const payload = await getPayload();
     const { pathname, search } = new URL(req.url);
     const path = pathname.replace('/api/admin', '');
     const query = search || '';
 
-    const response = await payload.findGlobal({
-      slug: path + query,
+    // Convert the request to a format Payload can understand
+    const payloadReq = {
+      url: path + query,
+      method: req.method,
+      headers: req.headers,
+      query: Object.fromEntries(new URLSearchParams(query)),
+      body: req.body,
+    };
+
+    // Use Payload's local API
+    const response = await payload.local.graphQL({
+      req: payloadReq,
     });
 
     return NextResponse.json(response);
