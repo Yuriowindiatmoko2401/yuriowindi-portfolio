@@ -4,9 +4,7 @@ import { getPayload } from '../../../../lib/payload';
 async function handler(req) {
   // Set CORS headers
   const corsHeaders = {
-    'Access-Control-Allow-Origin': process.env.NODE_ENV === 'production' 
-      ? 'https://yuriowindi-portfolio.vercel.app' 
-      : 'http://localhost:3000',
+    'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
     'Access-Control-Allow-Headers': 'Content-Type, Authorization',
     'Access-Control-Allow-Credentials': 'true',
@@ -21,11 +19,16 @@ async function handler(req) {
   }
   
   try {
+    // For all other requests, return a redirect to the admin panel
+    if (req.method === 'GET') {
+      return NextResponse.redirect(new URL('/admin', req.url));
+    }
+    
+    // For POST requests, try to handle them with Payload's GraphQL API
     const payload = await getPayload();
     
     // Get the path
     const { pathname } = new URL(req.url);
-    const path = pathname.replace('/api/admin', '');
     
     // Parse body if present
     let body;
@@ -37,44 +40,18 @@ async function handler(req) {
       }
     }
     
-    // Use payload.local API
-    let result;
-    
-    if (path.includes('/graphql')) {
-      // Handle GraphQL requests
-      result = await payload.local.graphQL({
+    // Use payload.local API for GraphQL requests
+    if (pathname.includes('/graphql')) {
+      const result = await payload.local.graphQL({
         query: body?.query,
         variables: body?.variables,
       });
-    } else {
-      // For all other requests, pass to appropriate local method
-      const method = req.method.toLowerCase();
-      const collection = path.split('/')[1] || 'users';
       
-      if (method === 'get') {
-        // Handle collection or single document request
-        const id = path.split('/').pop();
-        
-        if (id && id !== collection) {
-          result = await payload.local.findByID({
-            collection,
-            id,
-          });
-        } else {
-          result = await payload.local.find({
-            collection,
-            limit: 100,
-          });
-        }
-      } else if (method === 'post') {
-        result = await payload.local.create({
-          collection,
-          data: body,
-        });
-      }
+      return NextResponse.json(result, { headers: corsHeaders });
     }
     
-    return NextResponse.json(result || { success: true }, { headers: corsHeaders });
+    // For other requests, return a redirect to the admin panel
+    return NextResponse.redirect(new URL('/admin', req.url));
   } catch (error) {
     console.error('Admin route error:', error);
     return NextResponse.json(
