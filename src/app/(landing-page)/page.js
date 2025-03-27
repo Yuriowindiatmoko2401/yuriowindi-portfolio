@@ -2,10 +2,11 @@ import ProjectSection from "./components/ProjectSection";
 import PostsSection from "./components/PostsSection";
 import Link from "next/link";
 import HeroSection from "./components/HeroSection";
-import payload from "payload";
+import { getPayload } from "../../lib/payload";
 
 async function getPosts() {
   try {
+    const payload = await getPayload();
     const posts = await payload.find({
       collection: 'posts',
       where: {
