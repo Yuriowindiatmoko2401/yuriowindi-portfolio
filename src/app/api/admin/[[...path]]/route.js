@@ -17,20 +17,6 @@ async function handler(req) {
       headers: corsHeaders,
     });
   }
-  
-  // For production, return a clear message - no redirects
-  if (process.env.NODE_ENV === 'production') {
-    return NextResponse.json(
-      { 
-        message: 'The Payload CMS admin panel is only available in local development mode.',
-        instructions: 'To access the admin panel, run the application locally with npm run dev and visit http://localhost:3000/admin'
-      }, 
-      { 
-        status: 200,
-        headers: corsHeaders
-      }
-    );
-  }
 
   // For development, try to handle the admin requests properly
   try {
