@@ -1,26 +1,25 @@
 import { NextResponse } from 'next/server';
-import { getPayload } from '../../../../lib/payload';
+import { createPayloadClient } from '@payloadcms/next-payload';
+import config from '../../../../../payload.config';
+
+const { payload } = createPayloadClient({
+  // Payload config
+  config,
+  // Configure express separately
+  express: null,
+});
 
 async function handler(req) {
   try {
-    const payload = await getPayload();
     const { pathname, search } = new URL(req.url);
-    const query = search ? `?${search}` : '';
-    const payloadUrl = `/api/admin${pathname.replace('/api/admin', '')}${query}`;
+    const path = pathname.replace('/api/admin', '');
+    const query = search || '';
 
-    const payloadResponse = await payload.request({
-      url: payloadUrl,
-      method: req.method,
-      headers: req.headers,
-      body: req.body,
+    const response = await payload.findGlobal({
+      slug: path + query,
     });
 
-    return new NextResponse(JSON.stringify(payloadResponse), {
-      status: 200,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+    return NextResponse.json(response);
   } catch (error) {
     console.error(`Error in ${req.method}:`, error);
     return NextResponse.json({ error: error.message }, { status: 500 });
