@@ -1,4 +1,4 @@
-import { getPayload } from '../../../../lib/payload'
+import { getPayload } from '../../../lib/payload'
 import { NextResponse } from 'next/server'
 
 export async function GET() {
