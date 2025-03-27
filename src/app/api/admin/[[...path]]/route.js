@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { getPayload } from '../../../../lib/payload';
 
 async function handler(req) {
   // Set CORS headers
@@ -17,10 +18,62 @@ async function handler(req) {
     });
   }
   
-  // Always redirect to /admin/login for all requests
-  const url = new URL(req.url);
-  const baseUrl = `${url.protocol}//${url.host}`;
-  return NextResponse.redirect(`${baseUrl}/admin/login`);
+  // For production, return a clear message - no redirects
+  if (process.env.NODE_ENV === 'production') {
+    return NextResponse.json(
+      { 
+        message: 'The Payload CMS admin panel is only available in local development mode.',
+        instructions: 'To access the admin panel, run the application locally with npm run dev and visit http://localhost:3000/admin'
+      }, 
+      { 
+        status: 200,
+        headers: corsHeaders
+      }
+    );
+  }
+
+  // For development, try to handle the admin requests properly
+  try {
+    const payload = await getPayload();
+    const { pathname } = new URL(req.url);
+    
+    // Parse body if present
+    let body;
+    if (req.body) {
+      try {
+        body = await req.json();
+      } catch (e) {
+        // Not JSON or no body
+      }
+    }
+    
+    // GraphQL requests
+    if (pathname.includes('/graphql')) {
+      const result = await payload.local.graphQL({
+        query: body?.query,
+        variables: body?.variables,
+      });
+      
+      return NextResponse.json(result, { headers: corsHeaders });
+    }
+  } catch (error) {
+    console.error('Admin route error:', error);
+    return NextResponse.json(
+      { error: error.message },
+      { status: error.status || 500, headers: corsHeaders }
+    );
+  }
+  
+  // For all other requests in development that we can't handle directly
+  return NextResponse.json(
+    { 
+      message: 'Please access the admin panel directly at http://localhost:3000/admin'
+    }, 
+    { 
+      status: 200,
+      headers: corsHeaders
+    }
+  );
 }
 
 export const GET = handler;
