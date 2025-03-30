@@ -24,16 +24,7 @@ const Footer = () => {
               <h3 className="text-sm font-semibold text-white">Quick Links</h3>
               <nav className="flex flex-col space-y-2">
                 <Link href="/about" className="text-sm text-gray-400 hover:text-white transition-colors duration-200">
-                  // expertise
-                </Link>
-                <Link href="/work" className="text-sm text-gray-400 hover:text-white transition-colors duration-200">
-                  // work
-                </Link>
-                <Link href="/experience" className="text-sm text-gray-400 hover:text-white transition-colors duration-200">
-                  // experience
-                </Link>
-                <Link href="/contact" className="text-sm text-gray-400 hover:text-white transition-colors duration-200">
-                  // contact
+                  // resume
                 </Link>
               </nav>
             </div>
