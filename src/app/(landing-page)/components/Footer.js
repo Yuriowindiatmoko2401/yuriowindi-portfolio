@@ -65,7 +65,7 @@ const Footer = () => {
               <div className="mt-6 md:mt-0 md:px-6 py-2 max-w-md w-full md:w-auto flex flex-col items-center border border-gray-800/50 rounded-lg bg-gray-900/30">
                 <p className="text-orange-400 font-medium">This portfolio made by 🫶</p>
                 <p className="text-orange-500 font-bold text-xl">NextPPT</p>
-                <p className="text-gray-400 text-xs">bukan para pencuri Tuhan</p>
+                <p className="text-gray-400 text-xs">bukan para pencari Tuhan</p>
                 <p className="text-gray-300 text-sm mt-1 text-center">
                   NextJS PostgreSQL PayloadCMS<br/>
                   Tailwind CSS
