@@ -27,25 +27,7 @@ const Navbar = () => {
               href="/about" 
               className="text-sm text-gray-300 hover:text-white transition-colors duration-200"
             >
-              // expertise
-            </Link>
-            <Link 
-              href="/work" 
-              className="text-sm text-gray-300 hover:text-white transition-colors duration-200"
-            >
-              // work
-            </Link>
-            <Link 
-              href="/experience" 
-              className="text-sm text-gray-300 hover:text-white transition-colors duration-200"
-            >
-              // experience
-            </Link>
-            <Link 
-              href="/contact" 
-              className="text-sm text-gray-300 hover:text-white transition-colors duration-200"
-            >
-              // contact
+              // resume
             </Link>
           </nav>
 
@@ -97,25 +79,11 @@ const Navbar = () => {
                 // expertise
               </Link>
               <Link
-                href="/work"
-                className="text-sm text-gray-300 hover:text-white transition-colors duration-200"
-                onClick={() => setIsOpen(false)}
-              >
-                // work
-              </Link>
-              <Link
                 href="/experience"
                 className="text-sm text-gray-300 hover:text-white transition-colors duration-200"
                 onClick={() => setIsOpen(false)}
               >
-                // experience
-              </Link>
-              <Link
-                href="/contact"
-                className="text-sm text-gray-300 hover:text-white transition-colors duration-200"
-                onClick={() => setIsOpen(false)}
-              >
-                // contact
+                // resume
               </Link>
             </nav>
           </div>

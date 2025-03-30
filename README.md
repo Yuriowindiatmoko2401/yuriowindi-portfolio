@@ -45,5 +45,5 @@ Visit [http://localhost:3000](http://localhost:3000)
 
 ## 📫 Contact
 - Email: yuriowindiatmoko@gmail.com
-- LinkedIn: [Yurio Windiatmoko](https://www.linkedin.com/in/yuriowindiatmoko-347142156)
+- LinkedIn: [Yurio Windiatmoko](https://www.linkedin.com/in/yurio-windiatmoko-347142156)
 - GitHub: [@Yuriowindiatmoko2401](https://github.com/Yuriowindiatmoko2401)

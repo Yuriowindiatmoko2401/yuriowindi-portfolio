@@ -39,7 +39,7 @@ const Footer = () => {
             </div>
 
             {/* Social Links */}
-            <div className="space-y-4">
+            <div id="connect" className="space-y-4">
               <h3 className="text-sm font-semibold text-white">Connect</h3>
               <nav className="flex flex-col space-y-2">
                 <a 
