@@ -51,7 +51,7 @@ const Footer = () => {
                   // github
                 </a>
                 <a 
-                  href="https://www.linkedin.com/in/yuriowindiatmoko-347142156" 
+                  href="https://www.linkedin.com/in/yurio-windiatmoko-347142156" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="text-sm text-gray-400 hover:text-white transition-colors duration-200"

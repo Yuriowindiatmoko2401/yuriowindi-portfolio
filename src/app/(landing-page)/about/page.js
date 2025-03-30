@@ -17,7 +17,7 @@ const AboutPage = () => {
           </div>
           <div className="flex items-center gap-2">
             <Linkedin className="w-5 h-5" />
-            <a href="https://www.linkedin.com/in/yuriowindiatmoko-347142156" target="_blank" rel="noopener noreferrer" className="hover:text-primary-500">LinkedIn</a>
+            <a href="https://www.linkedin.com/in/yurio-windiatmoko-347142156" target="_blank" rel="noopener noreferrer" className="hover:text-primary-500">LinkedIn</a>
           </div>
           <div className="flex items-center gap-2">
             <Github className="w-5 h-5" />
