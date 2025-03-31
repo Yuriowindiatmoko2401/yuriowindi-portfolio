@@ -15,7 +15,7 @@ const HeroSection = () => {
 
   return (
     <section 
-      className="min-h-screen flex items-center justify-center relative overflow-hidden"
+      className="min-h-[calc(100vh-6rem)] flex items-center justify-center relative overflow-hidden"
       onMouseMove={handleMouseMove}
     >
       {/* Animated Background */}
@@ -30,9 +30,9 @@ const HeroSection = () => {
       </div>
 
       {/* Content */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="col-span-7 place-self-center">
-          <p className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-red-400 mb-1 text-4xl sm:text-5xl lg:text-7xl font-bold tracking-tight opacity-90">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 max-w-7xl mx-auto relative z-10">
+        <div className="col-span-7 place-self-center text-center lg:text-left">
+          <p className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-red-400 mb-1 text-3xl sm:text-4xl lg:text-7xl font-bold tracking-tight opacity-90">
             Assalamu Alaikum
           </p>
           <h1 className="text-white mb-4 text-4xl sm:text-5xl lg:text-7xl font-bold tracking-tight">

@@ -27,7 +27,7 @@ export default async function Home() {
   const posts = await getPosts();
 
   return (
-    <div className="container mx-auto p-8 pb-20 sm:p-20 font-[family-name:var(--font-geist-sans)] ">
+    <div className="container mx-auto px-4 sm:px-8 pt-24 sm:pt-20 pb-20 font-[family-name:var(--font-geist-sans)] ">
       <HeroSection />
       <ProjectSection />
       <PostsSection posts={posts} />
