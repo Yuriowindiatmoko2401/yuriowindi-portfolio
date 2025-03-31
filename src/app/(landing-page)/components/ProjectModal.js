@@ -1,5 +1,5 @@
-import Image from "next/image";
 import { X, ChevronRight, ChevronLeft, FileText, Code, GitHub } from "lucide-react";
+import IpadFrame from "./IpadFrame.js";
 import { useRef } from "react";
 
 export default function ProjectModal({ project, onClose, onNext, onPrev }) {
@@ -80,13 +80,11 @@ export default function ProjectModal({ project, onClose, onNext, onPrev }) {
               </div>
             </div>
           </div>
-          <div className="relative h-[400px] w-full md:w-1/2 rounded-lg overflow-hidden border border-gray-700/50">
-            <Image
-              src={project.image}
-              alt={project.title}
-              layout="fill"
-              objectFit="contain"
-              className="p-0"
+          <div className="w-full md:w-1/2">
+            <IpadFrame
+              gifSrc={project.image}
+              gifAlt={project.title}
+              className="w-full"
             />
           </div>
           <div className="absolute top-1/2 -translate-y-1/2 flex justify-between w-full px-4">
