@@ -2,7 +2,7 @@ import { MapPin, Mail, Linkedin, Github, BookOpen, Award, Languages } from "luci
 
 const AboutPage = () => {
   return (
-    <div className="container mx-auto p-8 pb-20 sm:p-20">
+    <div className="container mx-auto pt-24 px-8 pb-20 sm:p-20">
       {/* Hero Section */}
       <div className="mb-16">
         <h1 className="text-5xl font-bold mb-6">Yurio Windiatmoko</h1>
